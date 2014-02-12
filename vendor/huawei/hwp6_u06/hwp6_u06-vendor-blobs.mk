@@ -41,8 +41,6 @@ PRODUCT_COPY_FILES += \
     $(PATH_FILES)/lib/hw/hwcomposer.k3v2oem1.so:system/lib/hw/hwcomposer.k3v2oem1.so \
     $(PATH_FILES)/lib/hw/lights.hwp6_u06.so:system/lib/hw/lights.hwp6_u06.so \
     $(PATH_FILES)/lib/hw/sensors.k3v2oem1.so:system/lib/hw/sensors.k3v2oem1.so \
-    $(PATH_FILES)/lib/hw/audio.primary.hwp6_u06.so:system/lib/hw/audio.primary.hwp6_u06.so \
-    $(PATH_FILES)/lib/hw/audio_policy.hwp6_u06.so:system/lib/hw/audio_policy.hwp6_u06.so \
     $(PATH_FILES)/lib/modules/cfg80211.ko:system/lib/modules/cfg80211.ko \
     $(PATH_FILES)/lib/modules/compat.ko:system/lib/modules/compat.ko \
     $(PATH_FILES)/lib/modules/mac80211.ko:system/lib/modules/mac80211.ko \

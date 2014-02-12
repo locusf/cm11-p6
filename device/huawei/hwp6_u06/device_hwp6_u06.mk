@@ -398,7 +398,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    libaudioutils
+    libaudioutils \
+    audioloop \
+    libaudio-resampler
 
 # Wifi
 PRODUCT_COPY_FILES += \

@@ -4,6 +4,7 @@ USE_CAMERA_STUB := true
 
 # Audio
 TARGET_PROVIDES_LIBAUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
 
 # inherit from the proprietary version
 include vendor/huawei/hwp6_u06/BoardConfigVendor.mk
@@ -59,7 +60,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/hwp6_u06/bluetooth
 TARGET_PREBUILT_KERNEL := device/huawei/hwp6_u06/kernel
 
 #***
-BOARD_USES_SECURE_SERVICES := true
+#BOARD_USES_SECURE_SERVICES := true
 BOARD_CHARGER_ENABLE_SUSPEND :=true
 #BOARD_USES_HWCOMPOSER := true
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.k3v2oem1
