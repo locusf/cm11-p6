@@ -96,19 +96,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/security.key:system/etc/gnss/RXN/security.key
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/C9800D_conf:system/etc/t_conf/C9800D_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/CEDGE_conf:system/etc/t_conf/CEDGE_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/D2_conf:system/etc/t_conf/D2_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/T9800L_conf:system/etc/t_conf/T9800L_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/TEDGE_conf:system/etc/t_conf/TEDGE_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/thermal.conf:system/etc/t_conf/thermal.conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9700L_conf:system/etc/t_conf/U9700L_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9800D_conf:system/etc/t_conf/U9800D_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9900_conf:system/etc/t_conf/U9900_conf \
-    $(LOCAL_PATH)/prebuilt/etc/t_conf/UEDGE_conf:system/etc/t_conf/UEDGE_conf
-
-
-PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/asound_ADL.dat:system/etc/asound_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf \
