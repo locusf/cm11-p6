@@ -1,10 +1,9 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
-# Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product-if-exists, vendor/huawei/hwp6_u06/hwp6_u06-vendor.mk)
 
@@ -12,34 +11,60 @@ LOCAL_PATH := device/huawei/hwp6_u06
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-LOCAL_PATH := device/huawei/hwp6_u06
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/fstab.k3v2oem1:root/fstab.k3v2oem1 \
+    $(LOCAL_PATH)/root/init.k3v2oem1.rc:root/init.k3v2oem1.rc \
+    $(LOCAL_PATH)/root/init.k3v2oem1.usb.rc:root/init.k3v2oem1.usb.rc \
+    $(LOCAL_PATH)/root/init.k3v2oem1.cpu.rc:root/init.k3v2oem1.cpu.rc \
+    $(LOCAL_PATH)/root/init.k3v2oem1.glove.rc:root/init.k3v2oem1.glove.rc \
+    $(LOCAL_PATH)/recovery/ueventd.k3v2oem1.rc:root/ueventd.k3v2oem1.rc \
+    $(LOCAL_PATH)/recovery/ueventd.rc:root/ueventd.rc \
+    $(LOCAL_PATH)/root/init.rc:root/init.rc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+    $(LOCAL_PATH)/recovery/sbin/6085downloader:root/sbin/6085downloader \
+    $(LOCAL_PATH)/recovery/sbin/mtk_update:root/sbin/mtk_update \
+    $(LOCAL_PATH)/recovery/sbin/updatemodem:root/sbin/updatemodem
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/root/ueventd.k3v2oem1.rc:root/ueventd.k3v2oem1.rc \
-    $(LOCAL_PATH)/root/fstab.k3v2oem1:root/fstab.k3v2oem1 \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
-    $(LOCAL_PATH)/root/ueventd.k3v2oem1.rc:recovery/root/ueventd.k3v2oem1.rc \
-    $(LOCAL_PATH)/root/fstab.k3v2oem1:recovery/root/fstab.k3v2oem1 \
-    $(LOCAL_PATH)/root/ueventd.rc:root/ueventd.rc
+    $(LOCAL_PATH)/recovery/sbin/6085downloader:recovery/root/sbin/6085downloader \
+    $(LOCAL_PATH)/recovery/sbin/mtk_update:recovery/root/sbin/mtk_update \
+    $(LOCAL_PATH)/recovery/sbin/updatemodem:recovery/root/sbin/updatemodem
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/config/cacerts.bks:system/etc/gnss/config/cacerts.bks \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/config/Connect_Config.txt:system/etc/gnss/config/Connect_Config.txt \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/config/DM_SUPL_Config.xml:system/etc/gnss/config/DM_SUPL_Config.xml \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/config/dproxy.conf:system/etc/gnss/config/dproxy.conf \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/config/SUPLConfigParams.xml:system/etc/gnss/config/SUPLConfigParams.xml \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/patch/dproxy.patch:system/etc/gnss/patch/dproxy.patch \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/license.key:system/etc/gnss/RXN/license.key \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/MSLConfig.txt:system/etc/gnss/RXN/MSLConfig.txt \
-    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/security.key:system/etc/gnss/RXN/security.key
+    $(LOCAL_PATH)/recovery/ueventd.k3v2oem1.rc:recovery/root/ueventd.k3v2oem1.rc \
+    $(LOCAL_PATH)/recovery/fstab.k3v2oem1:recovery/root/fstab.k3v2oem1 \
+    $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/system/bin/linker:recovery/root/system/bin/linker \
+    $(LOCAL_PATH)/recovery/system/lib/libc.so:recovery/root/system/lib/libc.so \
+    $(LOCAL_PATH)/recovery/system/lib/libdl.so:recovery/root/system/lib/libdl.so \
+    $(LOCAL_PATH)/recovery/system/lib/libm.so:recovery/root/system/lib/libm.so \
+    $(LOCAL_PATH)/recovery/system/lib/libstdc++.so:recovery/root/system/lib/libstdc++.so \
+    $(LOCAL_PATH)/recovery/system/lib/libz.so:recovery/root/system/lib/libz.so
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/batt_level_scale.png:recovery/root/res/images/720x1280/batt_level_scale.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/batt_level_top.png:recovery/root/res/images/720x1280/batt_level_top.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/bg.png:recovery/root/res/images/720x1280/bg.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/empty_charge.png:recovery/root/res/images/720x1280/empty_charge.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/err_charge.png:recovery/root/res/images/720x1280/err_charge.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/full_charge.png:recovery/root/res/images/720x1280/full_charge.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_0.png:recovery/root/res/images/720x1280/number_0.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_1.png:recovery/root/res/images/720x1280/number_1.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_2.png:recovery/root/res/images/720x1280/number_2.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_3.png:recovery/root/res/images/720x1280/number_3.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_4.png:recovery/root/res/images/720x1280/number_4.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_5.png:recovery/root/res/images/720x1280/number_5.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_6.png:recovery/root/res/images/720x1280/number_6.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_7.png:recovery/root/res/images/720x1280/number_7.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_8.png:recovery/root/res/images/720x1280/number_8.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/number_9.png:recovery/root/res/images/720x1280/number_9.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/percent_5.png:recovery/root/res/images/720x1280/percent_5.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/percent_10.png:recovery/root/res/images/720x1280/percent_10.png \
+    $(LOCAL_PATH)/recovery/res/images/720x1280/percent_sign.png:recovery/root/res/images/720x1280/percent_sign.png
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
@@ -59,10 +84,59 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/config/cacerts.bks:system/etc/gnss/config/cacerts.bks \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/config/Connect_Config.txt:system/etc/gnss/config/Connect_Config.txt \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/config/DM_SUPL_Config.xml:system/etc/gnss/config/DM_SUPL_Config.xml \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/config/dproxy.conf:system/etc/gnss/config/dproxy.conf \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/config/SUPLConfigParams.xml:system/etc/gnss/config/SUPLConfigParams.xml \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/patch/dproxy.patch:system/etc/gnss/patch/dproxy.patch \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/license.key:system/etc/gnss/RXN/license.key \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/MSLConfig.txt:system/etc/gnss/RXN/MSLConfig.txt \
+    $(LOCAL_PATH)/prebuilt/etc/gnss/RXN/security.key:system/etc/gnss/RXN/security.key
 
-PRODUCT_LOCALES += en_US
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/C9800D_conf:system/etc/t_conf/C9800D_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/CEDGE_conf:system/etc/t_conf/CEDGE_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/D2_conf:system/etc/t_conf/D2_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/T9800L_conf:system/etc/t_conf/T9800L_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/TEDGE_conf:system/etc/t_conf/TEDGE_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/thermal.conf:system/etc/t_conf/thermal.conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9700L_conf:system/etc/t_conf/U9700L_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9800D_conf:system/etc/t_conf/U9800D_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/U9900_conf:system/etc/t_conf/U9900_conf \
+    $(LOCAL_PATH)/prebuilt/etc/t_conf/UEDGE_conf:system/etc/t_conf/UEDGE_conf
+
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/asound_ADL.dat:system/etc/asound_ADL.dat \
+    $(LOCAL_PATH)/prebuilt/etc/audio_effects.conf:system/etc/audio_effects.conf \
+    $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/prebuilt/etc/camera_orientation.cfg:system/etc/camera_orientation.cfg \
+    $(LOCAL_PATH)/prebuilt/etc/camera_resolutions.cfg:system/etc/camera_resolutions.cfg \
+    $(LOCAL_PATH)/prebuilt/etc/es305.bin:system/etc/es305.bin \
+    $(LOCAL_PATH)/prebuilt/etc/es305_uart.bin:system/etc/es305_uart.bin \
+    $(LOCAL_PATH)/prebuilt/etc/globalAutoAdapt-conf.xml:system/etc/globalAutoAdapt-conf.xml \
+    $(LOCAL_PATH)/prebuilt/etc/globalMatchs-conf.xml:system/etc/globalMatchs-conf.xml \
+    $(LOCAL_PATH)/prebuilt/etc/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/prebuilt/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
+    $(LOCAL_PATH)/prebuilt/etc/k3_omx.cfg:system/etc/k3_omx.cfg \
+    $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/prebuilt/etc/ril_balong_radio.cfg:/system/etc/ril_balong_radio.cfg \
+    $(LOCAL_PATH)/prebuilt/etc/ril_xgold_radio.cfg:/system/etc/ril_xgold_radio.cfg \
+    $(LOCAL_PATH)/prebuilt/etc/vold.fstab:system/etc/vold.fstab
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/usr/idc/hisik3_touchscreen.idc:system/usr/idc/hisik3_touchscreen.idc \
+    $(LOCAL_PATH)/prebuilt/usr/idc/cyttsp4_mt.idc:system/usr/idc/cyttsp4_mt.idc \
+    $(LOCAL_PATH)/prebuilt/usr/idc/k3_keypad.idc:system/usr/idc/k3_keypad.idc \
+    $(LOCAL_PATH)/prebuilt/usr/idc/screenovate_keyboard.idc:system/usr/idc/screenovate_keyboard.idc \
+    $(LOCAL_PATH)/prebuilt/usr/idc/synaptics.idc:system/usr/idc/synaptics.idc \
+    $(LOCAL_PATH)/prebuilt/usr/idc/screenovate_mouse.idc:system/usr/idc/screenovate_mouse.idc \
+    $(LOCAL_PATH)/prebuilt/usr/keylayout/k3_keypad.kl:system/usr/keylayout/k3_keypad.kl \
+    $(LOCAL_PATH)/prebuilt/usr/keylayout/screenovate_keyboard.kl:system/usr/keylayout/screenovate_keyboard.kl \
+    $(LOCAL_PATH)/prebuilt/usr/keychars/screenovate_keyboard.kcm:system/usr/keychars/screenovate_keyboard.kcm
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/audio/audience/audience_C9800D_ce_cs.bin:system/etc/audio/audience/audience_C9800D_ce_cs.bin \
@@ -97,6 +171,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_CEDGE_default_ADL.dat:system/etc/audio/codec/asound_CEDGE_default_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_default_ADL.dat:system/etc/audio/codec/asound_default_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_k3v2oem1_default_ADL.dat:system/etc/audio/codec/asound_k3v2oem1_default_ADL.dat \
+    $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_T9800L_ce_ADL.dat:system/etc/audio/codec/asound_T9800L_ce_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_T9800L_default_ADL.dat:system/etc/audio/codec/asound_T9800L_default_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_T9900_ce_ADL.dat:system/etc/audio/codec/asound_T9900_ce_ADL.dat \
     $(LOCAL_PATH)/prebuilt/etc/audio/codec/asound_T9900_default_ADL.dat:system/etc/audio/codec/asound_T9900_default_ADL.dat \
@@ -265,21 +340,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/audio/tpa2028/tpa2028_U9701L.cfg:system/etc/audio/tpa2028/tpa2028_U9701L.cfg
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/asound_ADL.dat:system/etc/asound_ADL.dat \
-    $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/prebuilt/etc/camera_orientation.cfg:system/etc/camera_orientation.cfg \
-    $(LOCAL_PATH)/prebuilt/etc/camera_resolutions.cfg:system/etc/camera_resolutions.cfg \
-    $(LOCAL_PATH)/prebuilt/etc/es305.bin:system/etc/es305.bin \
-    $(LOCAL_PATH)/prebuilt/etc/es305_uart.bin:system/etc/es305_uart.bin \
-    $(LOCAL_PATH)/prebuilt/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
-    $(LOCAL_PATH)/prebuilt/etc/k3_omx.cfg:system/etc/k3_omx.cfg \
-    $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/prebuilt/etc/ril_balong_radio.cfg:/system/etc/ril_balong_radio.cfg \
-    $(LOCAL_PATH)/prebuilt/etc/ril_xgold_radio.cfg:/system/etc/ril_xgold_radio.cfg \
-    $(LOCAL_PATH)/prebuilt/etc/vold.fstab:system/etc/vold.fstab
-
-PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/device.config:system/etc/camera/davinci/device.config \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/cm_correction.dat:system/etc/camera/davinci/default/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/cm_foliage.dat:system/etc/camera/davinci/default/cm_foliage.dat \
@@ -287,24 +347,28 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/cm_sky.dat:system/etc/camera/davinci/default/cm_sky.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/cm_sunset.dat:system/etc/camera/davinci/default/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/imgproc.xml:system/etc/camera/davinci/default/imgproc.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/default/multiframe.xml:system/etc/camera/davinci/default/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/cm_correction.dat:system/etc/camera/davinci/hi542/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/cm_foliage.dat:system/etc/camera/davinci/hi542/cm_foliage.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/cm_normal.dat:system/etc/camera/davinci/hi542/cm_normal.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/cm_sky.dat:system/etc/camera/davinci/hi542/cm_sky.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/cm_sunset.dat:system/etc/camera/davinci/hi542/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/imgproc.xml:system/etc/camera/davinci/hi542/imgproc.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/hi542/multiframe.xml:system/etc/camera/davinci/hi542/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/cm_correction.dat:system/etc/camera/davinci/ov8830/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/cm_foliage.dat:system/etc/camera/davinci/ov8830/cm_foliage.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/cm_normal.dat:system/etc/camera/davinci/ov8830/cm_normal.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/cm_sky.dat:system/etc/camera/davinci/ov8830/cm_sky.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/cm_sunset.dat:system/etc/camera/davinci/ov8830/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/imgproc.xml:system/etc/camera/davinci/ov8830/imgproc.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/ov8830/multiframe.xml:system/etc/camera/davinci/ov8830/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/cm_correction.dat:system/etc/camera/davinci/s5k4e1ga_foxconn/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/cm_foliage.dat:system/etc/camera/davinci/s5k4e1ga_foxconn/cm_foliage.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/cm_normal.dat:system/etc/camera/davinci/s5k4e1ga_foxconn/cm_normal.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/cm_sky.dat:system/etc/camera/davinci/s5k4e1ga_foxconn/cm_sky.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/cm_sunset.dat:system/etc/camera/davinci/s5k4e1ga_foxconn/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/imgproc.xml:system/etc/camera/davinci/s5k4e1ga_foxconn/imgproc.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/s5k4e1ga_foxconn/multiframe.xml:system/etc/camera/davinci/s5k4e1ga_foxconn/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/cm_correction.dat:system/etc/camera/davinci/sonyimx134_liteon/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/cm_foliage.dat:system/etc/camera/davinci/sonyimx134_liteon/cm_foliage.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/cm_normal.dat:system/etc/camera/davinci/sonyimx134_liteon/cm_normal.dat \
@@ -312,6 +376,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/cm_sunset.dat:system/etc/camera/davinci/sonyimx134_liteon/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/imgproc.xml:system/etc/camera/davinci/sonyimx134_liteon/imgproc.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/luma_boost.dat:system/etc/camera/davinci/sonyimx134_liteon/luma_boost.dat \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/multiframe.xml:system/etc/camera/davinci/sonyimx134_liteon/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx134_liteon/skin_mask_lite.dat:system/etc/camera/davinci/sonyimx134_liteon/skin_mask_lite.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/cm_correction.dat:system/etc/camera/davinci/sonyimx135_liteon/cm_correction.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/cm_foliage.dat:system/etc/camera/davinci/sonyimx135_liteon/cm_foliage.dat \
@@ -319,8 +384,23 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/cm_sky.dat:system/etc/camera/davinci/sonyimx135_liteon/cm_sky.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/cm_sunset.dat:system/etc/camera/davinci/sonyimx135_liteon/cm_sunset.dat \
     $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/imgproc.xml:system/etc/camera/davinci/sonyimx135_liteon/imgproc.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/davinci/sonyimx135_liteon/multiframe.xml:system/etc/camera/davinci/sonyimx135_liteon/multiframe.xml \
     $(LOCAL_PATH)/prebuilt/etc/camera/lowlight/lowlightcfg.xml:system/etc/camera/lowlight/lowlightcfg.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/chengguang.mtdata:system/etc/camera/meitu/chengguang.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/dianying.mtdata:system/etc/camera/meitu/dianying.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/kujiu1.mtdata:system/etc/camera/meitu/kujiu1.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/kujiu2.mtdata:system/etc/camera/meitu/kujiu2.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/kujiu3.mtdata:system/etc/camera/meitu/kujiu3.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/kujiu4.mtdata:system/etc/camera/meitu/kujiu4.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/kujiu5.mtdata:system/etc/camera/meitu/kujiu5.mtdata \
     $(LOCAL_PATH)/prebuilt/etc/camera/meitu/moran.mtdata:system/etc/camera/meitu/moran.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/overlayMap.mtdata:system/etc/camera/meitu/overlayMap.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/PSScreen.mtdata:system/etc/camera/meitu/PSScreen.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/qingse1.mtdata:system/etc/camera/meitu/qingse1.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/sucai3.mtdata:system/etc/camera/meitu/sucai3.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/sucai4.mtdata:system/etc/camera/meitu/sucai4.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/sucai5.mtdata:system/etc/camera/meitu/sucai5.mtdata \
+    $(LOCAL_PATH)/prebuilt/etc/camera/meitu/sucai7.mtdata:system/etc/camera/meitu/sucai7.mtdata \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado/ExpMatrixTOA.txt:system/etc/camera/tornado/ExpMatrixTOA.txt \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado/FireworksMinMaxTOA.txt:system/etc/camera/tornado/FireworksMinMaxTOA.txt \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado/FireworksModelTOA.model:system/etc/camera/tornado/FireworksModelTOA.model \
@@ -357,7 +437,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado_front/SunsetMinMaxTOA.txt:system/etc/camera/tornado_front/SunsetMinMaxTOA.txt \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado_front/SunsetModelTOA.model:system/etc/camera/tornado_front/SunsetModelTOA.model \
     $(LOCAL_PATH)/prebuilt/etc/camera/tornado_front/TornadoI.ini:system/etc/camera/tornado_front/TornadoI.ini \
-    $(LOCAL_PATH)/prebuilt/etc/camera/tracking/targettracking.xml:system/etc/camera/tracking/targettracking.xml \
+    $(LOCAL_PATH)/prebuilt/etc/camera/tracking/targettracking.xml:system/etc/camera/tracking/targettracking.xml
+
+PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf.bin:system/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf.bin \
     $(LOCAL_PATH)/prebuilt/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf-C9800D.bin:system/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf-C9800D.bin \
     $(LOCAL_PATH)/prebuilt/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf-CEDGE.bin:system/etc/firmware/ti-connectivity/wl18xx-conf/wl18xx-conf-CEDGE.bin \
@@ -375,32 +457,30 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/firmware/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
     $(LOCAL_PATH)/prebuilt/etc/firmware/fmc_ch8_1893.3.bts:system/etc/firmware/fmc_ch8_1893.3.bts \
     $(LOCAL_PATH)/prebuilt/etc/firmware/fm_rx_ch8_1893.3.bts:system/etc/firmware/fm_rx_ch8_1893.3.bts \
-    $(LOCAL_PATH)/prebuilt/etc/firmware/TIInit_12.8.32.bts:system/etc/firmware/TIInit_12.8.32.bts \
-    $(LOCAL_PATH)/prebuilt/usr/idc/hisik3_touchscreen.idc:system/usr/idc/hisik3_touchscreen.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/cyttsp4_mt.idc:system/usr/idc/cyttsp4_mt.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/k3_keypad.idc:system/usr/idc/k3_keypad.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/screenovate_keyboard.idc:system/usr/idc/screenovate_keyboard.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/synaptics.idc:system/usr/idc/synaptics.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/screenovate_mouse.idc:system/usr/idc/screenovate_mouse.idc \
-    $(LOCAL_PATH)/prebuilt/usr/keylayout/k3_keypad.kl:system/usr/keylayout/k3_keypad.kl \
-    $(LOCAL_PATH)/prebuilt/usr/keylayout/screenovate_keyboard.kl:system/usr/keylayout/screenovate_keyboard.kl \
-    $(LOCAL_PATH)/prebuilt/usr/keychars/screenovate_keyboard.kcm:system/usr/keychars/screenovate_keyboard.kcm
-
+    $(LOCAL_PATH)/prebuilt/etc/firmware/TIInit_12.8.32.bts:system/etc/firmware/TIInit_12.8.32.bts
 
 # This device have enough room for precise davick
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Prime spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.manufacturer=HUAWEI\
+    ro.product.manufacturer=HUAWEI \
     ro.product.model=P6-U06
 
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libemoji \
+    sf2 \
+    stream \
+    record \
+    recordvideo \
     libaudioutils \
+    libaudio-resampler \
     audioloop \
-    libaudio-resampler
+    codec
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -425,20 +505,42 @@ PRODUCT_PACKAGES += \
     VisualizationWallpapers
 
 PRODUCT_PACKAGES += \
-    Torch \
-    Stk
+    libc2dcolorconvert \
+    libdashplayer
 
-# Bluetooth & FmRadio
+# Enable switch storage
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/init.d/preparesd:/system/etc/init.d/preparesd
+
 PRODUCT_PACKAGES += \
-    uim-sysfs \
-    libbt-vendor \
+    Torch \
+    SOP
+
+# Bluetooth
+PRODUCT_PACKAGES += \
     bt_sco_app \
     BluetoothSCOApp \
     libtinyalsa
 
+PRODUCT_PACKAGES += \
+    uim-sysfs \
+    libbt-vendor
+
 # General
-PRODUCT_PROPERTY_OVERRIDES := \
-    ro.ril.hsxpa=2
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.selinux=0
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.enable-player=true \
+    media.stagefright.enable-meta=true \
+    media.stagefright.enable-scan=true \
+    media.stagefright.enable-http=true \
+    media.stagefright.enable-rtsp=true \
+    media.stagefright.enable-record=true \
+    net.rmnet0.dns1=8.8.8.8 \
+    net.rmnet0.dns2=8.8.4.4 \
+    net.dns1=8.8.8.8 \
+    net.dns2=8.8.4.4
 
 # OpenGL ES
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -447,11 +549,42 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp,adb \
     ro.opengles.version=131072
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.hspap_hsdpa_open=1 \
+    ro.config.modem_hsic=true \
+    ro.thmodem.type=sprd \
+    ro.modem.type=6260 \
+    ril.gsm.deviceid=-1 \
+    ril.cdma.deviceid=-1 \
+    ril.gsm.rssi=-1 \
+    ril.cdma.rssi=-1 \
+    persist.sys.logsystem.neversend=0 \
+    modify_ram_show=true \
+    persist.sys.phb.enable=1 \
+    persist.sys.phb.debug.enable=1 \
+    persist.sys.actualpoweron=true \
+    persist.radio.apm_sim_not_pwdn=1 \
+    ro.config.incall_notify_mms=true \
+    ro.config.hw_allow_ums_and_mtp=true \
+    ro.camera.sound.forced=1 \
+    keyguard.no_require_sim=true \
+    ro.config.hw_dolby=true \
+    ro.dolbywithheadset.enable=1 \
+    ro.streaming.video.drs=true \
+    media.aac_51_output_enabled=true \
+    ro.config.vdf_apn_switch=true \
+    ro.config.hw_show_network_icon=true \
+    persist.telephony.mpdn=false \
+    ro.cellbroadcast.emergencyids=919,4371 \
+    ro.config.vm_prioritymode=2 \
+    ro.product.aac.softaac2ffmpeg=true \
+    ro.config.helix_enable=true \
+    af.resampler.quality=4 \
+    ro.config.widevine_level3=true \
+    drm.service.enabled=true 
+
+
 $(call inherit-product, build/target/product/full.mk)
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_hwp6_u06
-PRODUCT_DEVICE := hwp6_u06

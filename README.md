@@ -17,4 +17,4 @@ $ choose your appropriate number ...
 
 $ brunch hwp6_u06
 
-Please replace META-INF & boot.img from : http://forum.xda-developers.com/showthread.php?p=50182546
+

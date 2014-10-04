@@ -1,6 +1,3 @@
-## Specify phone tech before including full_phone
-$(call inherit-product, vendor/cm/config/gsm.mk)
-
 # bootanimation target
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
@@ -22,4 +19,4 @@ PRODUCT_BRAND := huawei
 PRODUCT_MODEL := P6-U06
 PRODUCT_MANUFACTURER := HUAWEI
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=P6-U06 BUILD_FINGERPRINT="Huawei/P6-U00/hwp6-U00:4.4.2/HuaweiP6-U00/C00B014:user/ota-rel-keys,release-keys" PRIVATE_BUILD_DESC="P6-U00-user 4.4.2 HuaweiP6-U00 C00B014 ota-rel-keys,release-keys"
+

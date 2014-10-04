@@ -1,6 +1,6 @@
 BOARD_VENDOR := Huawei
 
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
 
 # Audio
 TARGET_PROVIDES_LIBAUDIO := true
@@ -21,13 +21,9 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_VARIANT := cortex-a9
 TARGET_ARCH_VARIANT_FPU := neon
 
-ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
-ARCH_ARM_USE_NON_NEON_MEMCPY := true
-
-NEED_WORKAROUND_CORTEX_A9_745320 := true
 
 TARGET_BOOTLOADER_BOARD_NAME := hwp6_u06
-BOARD_VENDOR_PLATFORM := k3v2oem1
+TARGET_BOARD_PLATFORM := k3v2oem1
 
 # Webkit
 ENABLE_WEBGL := true
@@ -59,14 +55,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/hwp6_u06/bluetooth
 
 TARGET_PREBUILT_KERNEL := device/huawei/hwp6_u06/kernel
 
-#***
-#BOARD_USES_SECURE_SERVICES := true
-BOARD_CHARGER_ENABLE_SUSPEND :=true
-#BOARD_USES_HWCOMPOSER := true
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.k3v2oem1
-TARGET_USES_PMEM:=true
-TARGET_USES_ION:=false
-#***
+BOARD_HAL_STATIC_LIBRARIES += libhealthd.k3v2oem1
 
 # adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
@@ -76,11 +65,27 @@ ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mass_storage
 # Graphics
 BOARD_EGL_CFG := device/huawei/hwp6_u06/prebuilt/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
+COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
+
+# Camera
+BOARD_CAMERA_HAVE_ISO := true
+
+# RIL
+BOARD_RIL_CLASS := ../../../device/huawei/hwp6_u06/ril/
+
+# Misc
+BOARD_NEEDS_CUTILS_LOG := true
+BOARD_SCREENRECORD_DEVICE_FORCE_AUDIO_MIC := true
+TARGET_GRALLOC_USES_ASHMEM := true
+BOARD_USES_SECURE_SERVICES := true
+TARGET_USES_PMEM:=true
+TARGET_USES_ION:=false
 
 # Kernel
 BOARD_KERNEL_CMDLINE := vmalloc=384M k3v2_pmem=1 mmcparts=mmcblk0:p1(xloader),p3(nvme),p4(misc),p5(splash),p6(oeminfo),p7(reserved1),p8(reserved2),p9(splash2),p10(recovery2),p11(recovery),p12(boot),p13(modemimage),p14(modemnvm1),p15(modemnvm2),p16(system),p17(cache),p18(cust),p19(userdata);mmcblk1:p1(ext_sdcard)
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset 0x01400000
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
@@ -88,12 +93,11 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 5255462912
 
+TARGET_OTA_ASSERT_DEVICE := hwp6_u06,hwp6-u06,P6-U06
 
 # USB mass storage
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
-BOARD_MTP_DEVICE := "/dev/mtp"
 BOARD_VOLD_MAX_PARTITIONS := 19
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -111,6 +115,9 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 
 BOARD_RECOVERY_SWIPE := true
 
+TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/hwp6_u06/recovery-kernel
+TARGET_RECOVERY_INITRC := device/huawei/hwp6_u06/recovery/init.rc
+
 #TWRP
 HAVE_SELINUX := true
 
@@ -118,39 +125,12 @@ TW_MAX_BRIGHTNESS := 255
 DEVICE_RESOLUTION := 720x1280
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 
-TW_ALWAYS_RMRF := true
-TW_NEVER_UMOUNT_SYSTEM := true
-
-TW_CUSTOM_BATTERY_PATH := "/sys/devices/platform/bq_bci_battery.1/Battery"
+TW_CUSTOM_BATTERY_PATH := "/sys/devices/platform/bq_bci_battery.1/power_supply/Battery"
 
 RECOVERY_SDCARD_ON_DATA := true 
-TW_HAS_NO_RECOVERY_PARTITION := true
 TW_FLASH_FROM_STORAGE := true
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 
-TW_INTERNAL_STORAGE_PATH := "/data/share"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_INCLUDE_JB_CRYPTO := true
-TW_CRYPTO_FS_TYPE := "ext4"
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd_backlight0/brightness
-TW_CRYPTO_REAL_BLKDEV := "/dev/block/platform/hi_mci.1/by-name/userdata"
-TW_CRYPTO_MNT_POINT := "/data"
-
-BOARD_SEPOLICY_DIRS += \
-    device/huawei/hwp6_u06/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    bluetooth.te \
-    debuggered.te \
-    device.te \
-    dhcp.te \
-    domain.te \
-    file_contexts \
-    init_shell.te \
-    mediaserver.te \
-    netd.te \
-    rild.te \
-    system.te \
-    vold.te
+TW_BRIGHTNESS_PATH := "/sys/devices/platform/k3_fb.1/leds/lcd_backlight0/brightness"
