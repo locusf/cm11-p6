@@ -32,6 +32,10 @@ namespace android {
 
 struct AMessage;
 class String8;
+
+#ifdef USE_K3V2OEM1
+
+#else
 class DataSource;
 
 class Sniffer : public RefBase {
@@ -66,6 +70,7 @@ private:
     Sniffer(const Sniffer &);
     Sniffer &operator=(const Sniffer &);
 };
+#endif
 
 class DataSource : public RefBase {
 public:
@@ -81,7 +86,11 @@ public:
             const char *uri,
             const KeyedVector<String8, String8> *headers = NULL);
 
+#ifdef USE_K3V2OEM1
+    DataSource() { }
+#else
     DataSource() { mSniffer = new Sniffer(); }
+#endif
 
     virtual status_t initCheck() const = 0;
 
@@ -132,9 +141,21 @@ public:
 protected:
     virtual ~DataSource() {}
 
+#ifdef USE_K3V2OEM1
+private:
+
+    static Mutex gSnifferMutex;
+    static List<SnifferFunc> gSniffers;
+    static bool gSniffersRegistered;
+
+    static void RegisterSniffer_l(SnifferFunc func);
+    static void RegisterSnifferPlugin();
+#else
+
     sp<Sniffer> mSniffer;
 
     static void RegisterSniffer_l(SnifferFunc func);
+#endif
 
     DataSource(const DataSource &);
     DataSource &operator=(const DataSource &);

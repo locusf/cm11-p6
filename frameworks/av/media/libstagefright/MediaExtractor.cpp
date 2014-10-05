@@ -60,15 +60,28 @@ sp<MediaExtractor> MediaExtractor::Create(
         const sp<DataSource> &source, const char *mime) {
     sp<AMessage> meta;
 
+#ifdef USE_K3V2OEM1
+
+#else
     bool secondPass = false;
+#endif
 
     String8 tmp;
+#ifdef USE_K3V2OEM1
+    if (mime == NULL) {
+#else
 retry:
     if (secondPass || mime == NULL) {
+#endif
+
+#ifdef USE_K3V2OEM1
+        float confidence;
+#else
         float confidence;
         if (secondPass) {
             confidence = 3.14f;
         }
+#endif
         if (!source->sniff(&tmp, &confidence, &meta)) {
             ALOGV("FAILED to autodetect media content.");
 
@@ -103,7 +116,11 @@ retry:
     }
 
     AString extractorName;
+#ifdef USE_K3V2OEM1
+    MediaExtractor *ret = NULL;
+#else
     sp<MediaExtractor> ret = NULL;
+#endif
     if (meta.get() && meta->findString("extended-extractor-use", &extractorName)
             && sPlugin.create) {
         ALOGI("Use extended extractor for the special mime(%s) or codec", mime);
@@ -149,6 +166,9 @@ retry:
     ret = ExtendedUtils::MediaExtractor_CreateIfNeeded(ret, source, mime);
 #endif
 
+#ifdef USE_K3V2OEM1
+    return ret;
+#else
     if (ret != NULL) {
 
         if (!(!strcasecmp(mime, MEDIA_MIMETYPE_CONTAINER_MPEG4) &&
@@ -161,6 +181,7 @@ retry:
     }
 
     return ret;
+#endif
 }
 
 }  // namespace android
