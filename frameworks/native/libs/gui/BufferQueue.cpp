@@ -191,12 +191,16 @@ status_t BufferQueue::setBufferCount(int bufferCount) {
     return NO_ERROR;
 }
 
+#ifdef USE_K3V2OEM1
+
+#else
 status_t BufferQueue::setBuffersSize(int size) {
     ST_LOGV("setBuffersSize: size=%d", size);
     Mutex::Autolock lock(mMutex);
     mGraphicBufferAlloc->setGraphicBufferSize(size);
     return NO_ERROR;
 }
+#endif
 
 int BufferQueue::query(int what, int* outValue)
 {

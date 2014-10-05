@@ -181,6 +181,9 @@ public:
         return result;
     }
 
+#ifdef USE_K3V2OEM1
+
+#else
     virtual status_t setBuffersSize(int size) {
         Parcel data, reply;
         data.writeInterfaceToken(IGraphicBufferProducer::getInterfaceDescriptor());
@@ -192,6 +195,7 @@ public:
         result = reply.readInt32();
         return result;
     }
+#endif
 
 };
 
@@ -268,6 +272,9 @@ status_t BnGraphicBufferProducer::onTransact(
             reply->writeInt32(res);
             return NO_ERROR;
         } break;
+#ifdef USE_K3V2OEM1
+
+#else
         case SET_BUFFERS_SIZE: {
             CHECK_INTERFACE(IGraphicBufferProducer, data, reply);
             int size = data.readInt32();
@@ -275,6 +282,7 @@ status_t BnGraphicBufferProducer::onTransact(
             reply->writeInt32(res);
             return NO_ERROR;
         } break;
+#endif
         case CONNECT: {
             CHECK_INTERFACE(IGraphicBufferProducer, data, reply);
             sp<IBinder> token = data.readStrongBinder();

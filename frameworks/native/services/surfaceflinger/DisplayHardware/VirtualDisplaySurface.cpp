@@ -447,9 +447,13 @@ status_t VirtualDisplaySurface::disconnect(int api) {
     return mSource[SOURCE_SINK]->disconnect(api);
 }
 
+#ifdef USE_K3V2OEM1
+
+#else
 status_t VirtualDisplaySurface::setBuffersSize(int size) {
    return mSource[SOURCE_SINK]->setBuffersSize(size);
 }
+#endif
 
 void VirtualDisplaySurface::updateQueueBufferOutput(
         const QueueBufferOutput& qbo) {

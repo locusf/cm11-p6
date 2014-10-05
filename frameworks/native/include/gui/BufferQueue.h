@@ -213,7 +213,11 @@ public:
     // buffer size. client should reset this value to 0, if it wants gralloc
     // to calculate the size for the buffer. this will take effect from next
     // dequeue buffer.
+#ifdef USE_K3V2OEM1
+
+#else
     virtual status_t setBuffersSize(int size);
+#endif
 
     /*
      * IGraphicBufferConsumer interface
