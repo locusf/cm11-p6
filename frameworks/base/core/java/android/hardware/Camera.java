@@ -170,6 +170,8 @@ public class Camera {
     private AutoFocusCallback mAutoFocusCallback;
     private AutoFocusMoveCallback mAutoFocusMoveCallback;
     private OnZoomChangeListener mZoomListener;
+    private LcdCompensateCallback mLcdCompensateCallback;
+    private TargetTrackingCallback mTargetTrackingCallback;
     private FaceDetectionListener mFaceListener;
     private ErrorCallback mErrorCallback;
     private boolean mOneShot;
@@ -1467,6 +1469,31 @@ public class Camera {
     {
         mZoomListener = listener;
     }
+
+/**************Fix Stock Huawei Ascend P6 Camera************/
+
+    public interface LcdCompensateCallback
+    {
+        void onLcdCompensateCallback(Camera camera);
+    };
+
+    public final void setLcdCompensateCallback(LcdCompensateCallback callback)
+    {
+	mLcdCompensateCallback = callback;
+    }
+
+
+    public interface TargetTrackingCallback
+    {
+        void onTargetTracking(int p1, int p2, Camera camera);
+    };
+
+    public final void setTargetTrackingCallback(TargetTrackingCallback callback)
+    {
+	mTargetTrackingCallback = callback;
+    }
+
+/**************End Huawei Ascend P6************/
 
     /**
      * Callback interface for face detected in the preview frame.
