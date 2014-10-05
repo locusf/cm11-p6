@@ -150,3 +150,8 @@ int android_reboot(int cmd, int flags, char *arg)
     return ret;
 }
 
+#ifdef USE_K3V2OEM1
+void __android_logPower_print()
+{
+}
+#endif
