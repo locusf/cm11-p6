@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SOP</string>
+    
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="action_exit">Exit</string>
+
+    <string name="fragment_0_label">Surdu\'s OmniROM\nproperties and boot service setup</string>
+    <string name="fragment_0_text">The purpose of this little app is to set ROM-specific properties by executing several \"setprop\" commands for you\n\nwritten by xdaid</string>
+
+    <string name="fragment_1_label">Extended Storage\nthese settings take effect after reboot</string>
+    <string name="fragment_1_radio1">Extended storage disabled</string>
+    <string name="fragment_1_radio2">Extended storage enabled</string>
+    <string name="fragment_1_button">\u0020reboot now\u0020</string>
+
+    <string name="fragment_2_label">Power Profiles\nthese settings take effect immediately</string>
+    <string name="fragment_2_radio1">Powersave</string>
+    <string name="fragment_2_radio2">Balanced</string>
+    <string name="fragment_2_radio3">Performances</string>
+    <string name="fragment_2_switch">make your choice permanent\nre-apply profile on boot</string>
+
+</resources>
