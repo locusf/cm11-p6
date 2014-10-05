@@ -56,6 +56,18 @@
             android:key="musicfx"
             android:title="@string/musicfx_title" />
 
+    <!-- Dolby Digital Plus -->
+    <PreferenceCategory
+         android:key="dolby_mobile_settings_category"
+	 android:title="@string/dolby_digital_plus_settings_title" />
+
+    <Preference
+	 android:key="dolby_mobile_settings"
+	 android:title="@string/dolby_mobile_settings_title" >
+
+    <intent android:action="com.huawei.android.globaldolbyeffect.GlobalDolbyEffectActivity" />
+    </Preference>
+
     <!-- Headset -->
     <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
             android:key="headset_connect_player"

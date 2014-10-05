@@ -1422,4 +1422,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="profile_setup_setup_triggers_description">Please select triggers which will activate this profile</string>
     <string name="profile_setup_actions_description">Now configure what happens when the profile is activated</string>
 
+    <!-- Dolby Digital Pluse -->
+    <string name="dolby_digital_plus_settings_title">Settings Dolby Mobile</string>
+    <string name="dolby_mobile_settings_title">Dolby Digital Plus</string>
+
 </resources>
