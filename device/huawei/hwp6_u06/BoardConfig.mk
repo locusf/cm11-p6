@@ -21,7 +21,6 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_VARIANT := cortex-a9
 TARGET_ARCH_VARIANT_FPU := neon
 
-
 TARGET_BOOTLOADER_BOARD_NAME := hwp6_u06
 TARGET_BOARD_PLATFORM := k3v2oem1
 
@@ -46,7 +45,6 @@ WIFI_FIRMWARE_LOADER             := ""
 BOARD_WIFI_SKIP_CAPABILITIES     := true
 COMMON_GLOBAL_CFLAGS += -DUSES_TI_MAC80211
 endif
-
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -78,8 +76,8 @@ BOARD_NEEDS_CUTILS_LOG := true
 BOARD_SCREENRECORD_DEVICE_FORCE_AUDIO_MIC := true
 TARGET_GRALLOC_USES_ASHMEM := true
 BOARD_USES_SECURE_SERVICES := true
-TARGET_USES_PMEM:=true
-TARGET_USES_ION:=false
+TARGET_USES_PMEM := true
+TARGET_USES_ION := false
 
 # Kernel
 BOARD_KERNEL_CMDLINE := vmalloc=384M k3v2_pmem=1 mmcparts=mmcblk0:p1(xloader),p3(nvme),p4(misc),p5(splash),p6(oeminfo),p7(reserved1),p8(reserved2),p9(splash2),p10(recovery2),p11(recovery),p12(boot),p13(modemimage),p14(modemnvm1),p15(modemnvm2),p16(system),p17(cache),p18(cust),p19(userdata);mmcblk1:p1(ext_sdcard)
@@ -94,6 +92,9 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 5255462912
 
 TARGET_OTA_ASSERT_DEVICE := hwp6_u06,hwp6-u06,P6-U06
+
+# Local flag
+LOCAL_CFLAGS += -DUSE_K3V2OEM1
 
 # USB mass storage
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
