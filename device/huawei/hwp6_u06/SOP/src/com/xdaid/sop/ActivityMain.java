@@ -28,7 +28,8 @@ public class ActivityMain extends FragmentActivity
 	{
 		Const.TAG_FRAGMENT_INFO,
 		Const.TAG_FRAGMENT_STORAGE,
-		Const.TAG_FRAGMENT_PROFILES,
+		Const.TAG_FRAGMENT_GLOVE,
+		Const.TAG_FRAGMENT_SCREEN,
 	};
 
 	/**
@@ -189,6 +190,7 @@ public class ActivityMain extends FragmentActivity
 		case 0: return new Fragment0();
 		case 1: return new Fragment1();
 		case 2: return new Fragment2();
+		case 3: return new Fragment3();
 		}
 		return null;
     }
@@ -199,6 +201,7 @@ public class ActivityMain extends FragmentActivity
 		if (fragment instanceof Fragment0) return 0;
 		if (fragment instanceof Fragment1) return 1;
 		if (fragment instanceof Fragment2) return 2;
+		if (fragment instanceof Fragment3) return 3;
 		return 0;
     }
 
@@ -263,23 +266,4 @@ public class ActivityMain extends FragmentActivity
         navDrawerList.setOnItemClickListener(navDrawerItemListener);
     }
 
-
-    /*
-    public Fragment getVisibleFragment()
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-       	List<Fragment> fragments = fragmentManager.getFragments();
-        if (fragments != null)
-        {
-        	for(Fragment fragment : fragments)
-        	{
-        		if(fragment != null)
-        		{
-        			if (fragment.isVisible()) return fragment;
-        		}
-        	}
-        }
-        return null;
-    }
-    */
 }

@@ -19,7 +19,9 @@ public class BootReceiver extends BroadcastReceiver
    	        if (prefs.getBoolean(Const.SOP_SERVICE_SETONBOOT, false))
    			{
    	        	Intent i = new Intent(context, BootService.class);
-   	        	i.setAction(Const.SOP_ACTION_CPUPROFILE);
+   	        	i.setAction(Const.SOP_ACTION_GLOVE);
+   	        	context.startService(i);
+   	        	i.setAction(Const.SOP_ACTION_SCREEN);
    	        	context.startService(i);
    			}
    		}

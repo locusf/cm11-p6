@@ -48,10 +48,15 @@ public class BootService extends Service
             	SharedPreferences prefs = getSharedPreferences(Const.SOP_PREFERENCES_FILE, Activity.MODE_PRIVATE);
                 if (action != null)
                 {
-                	if (action.equals(Const.SOP_ACTION_CPUPROFILE))
+                	if (action.equals(Const.SOP_ACTION_GLOVE))
                 	{
-                		String prop = prefs.getString(Const.SOP_PREFS_CPUPROFILE, "0");
-                		Cmd.execsu("setprop sys.cpu.mode " + prop);
+                		String prop = prefs.getString(Const.SOP_PREFS_GLOVE, "0");
+                		Cmd.execsu("setprop sys.glovemode.enabled " + prop);
+                	}
+                	if (action.equals(Const.SOP_ACTION_SCREEN))
+                	{
+                		String prop = prefs.getString(Const.SOP_PREFS_SCREEN, "false");
+                		Cmd.execsu("setprop lockscreen.rot_override " + prop);
                 	}
                 }
             }

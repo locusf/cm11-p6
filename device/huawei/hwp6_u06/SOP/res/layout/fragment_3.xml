@@ -4,14 +4,14 @@
     >
 
 	<LinearLayout
-		android:id="@+id/fragment_2_layout"
+		android:id="@+id/fragment_3_layout"
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:orientation="vertical"
     	>
 
 
-    	<TextView android:id="@+id/fragment_2_tv1"
+    	<TextView android:id="@+id/fragment_3_tv1"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center"
@@ -28,7 +28,7 @@
     	</TextView>
 
 		<RadioGroup
-        	android:id="@+id/fragment_2_rg1"
+        	android:id="@+id/fragment_3_rg1"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center"
@@ -43,23 +43,24 @@
         	>
  
         	<RadioButton
-            	android:id="@+id/fragment_2_rb1"
+            	android:id="@+id/fragment_3_rb1"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
         		android:layout_gravity="left"
-            	android:text="@string/fragment_2_radio1" />
+            	android:text="@string/fragment_3_radio1" />
  
         	<RadioButton
-            	android:id="@+id/fragment_2_rb2"
+            	android:id="@+id/fragment_3_rb2"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
         		android:layout_gravity="left"
-            	android:text="@string/fragment_2_radio2" />
+            	android:text="@string/fragment_3_radio2" />
  
+
        	</RadioGroup>
 
 		<Switch
-        	android:id="@+id/fragment_2_sw1"
+        	android:id="@+id/fragment_3_sw1"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_gravity="center"

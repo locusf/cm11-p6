@@ -16,11 +16,11 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 
-public class Fragment2 extends android.support.v4.app.Fragment
+public class Fragment3 extends android.support.v4.app.Fragment
 {
     private SharedPreferences prefs;
 
@@ -30,7 +30,7 @@ public class Fragment2 extends android.support.v4.app.Fragment
 	private com.xdaid.sop.ActivityMain parentActivity;
 
 
-    public Fragment2()
+    public Fragment3()
     {
         // Empty constructor required for fragment subclasses
     }
@@ -41,7 +41,7 @@ public class Fragment2 extends android.support.v4.app.Fragment
     {
         prefs = getActivity().getSharedPreferences(Const.SOP_PREFERENCES_FILE, Activity.MODE_PRIVATE);
 
-    	rootView = inflater.inflate(R.layout.fragment_2, container, false);
+    	rootView = inflater.inflate(R.layout.fragment_3, container, false);
         setHasOptionsMenu(true);
 
     	parentActivity = (com.xdaid.sop.ActivityMain)getActivity();
@@ -49,30 +49,30 @@ public class Fragment2 extends android.support.v4.app.Fragment
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TextView tv1 = (TextView)rootView.findViewById(R.id.fragment_2_tv1);
+        TextView tv1 = (TextView)rootView.findViewById(R.id.fragment_3_tv1);
 		tv1.setGravity(Gravity.CENTER);
-		tv1.setText(R.string.fragment_2_label);
+		tv1.setText(R.string.fragment_3_label);
 
-		RadioGroup rg1 = (RadioGroup)rootView.findViewById(R.id.fragment_2_rg1);
+		RadioGroup rg1 = (RadioGroup)rootView.findViewById(R.id.fragment_3_rg1);
 		rg1.setGravity(Gravity.CENTER);
 
-		RadioButton rb1 = (RadioButton)rootView.findViewById(R.id.fragment_2_rb1);
+		RadioButton rb1 = (RadioButton)rootView.findViewById(R.id.fragment_3_rb1);
 		rb1.setGravity(Gravity.CENTER);
-		rb1.setText(R.string.fragment_2_radio1);
+		rb1.setText(R.string.fragment_3_radio1);
 
-		RadioButton rb2 = (RadioButton)rootView.findViewById(R.id.fragment_2_rb2);
+		RadioButton rb2 = (RadioButton)rootView.findViewById(R.id.fragment_3_rb2);
 		rb2.setGravity(Gravity.CENTER);
-		rb2.setText(R.string.fragment_2_radio2);
+		rb2.setText(R.string.fragment_3_radio2);
 
-		Switch sw1 = (Switch)rootView.findViewById(R.id.fragment_2_sw1);
+		Switch sw1 = (Switch)rootView.findViewById(R.id.fragment_3_sw1);
 		sw1.setGravity(Gravity.CENTER);
-		sw1.setText(R.string.fragment_2_switch);
+		sw1.setText(R.string.fragment_3_switch);
 
-		String prop = Cmd.execsh("cat /sys/bus/platform/devices/huawei_touch/touch_glove");
-		if (prop == null) prop = "0";
-		if (prop.length() == 0) prop = "0";
-		if (prop.equals("0")) rb1.setChecked(true);
-		if (prop.equals("1")) rb2.setChecked(true);
+		String prop = Cmd.execsh("getprop lockscreen.rot_override");
+		if (prop == null) prop = "false";
+		if (prop.length() == 0) prop = "false";
+		if (prop.equalsIgnoreCase("false")) rb1.setChecked(true);
+		if (prop.equalsIgnoreCase("true")) rb2.setChecked(true);
 
 		boolean checked = prefs.getBoolean(Const.SOP_SERVICE_SETONBOOT, false);
 		sw1.setChecked(checked);
@@ -93,28 +93,27 @@ public class Fragment2 extends android.support.v4.app.Fragment
 			{
 				if (Cmd.isOpen())
 				{
-					Cmd.exec("setprop sys.glovemode.enabled 0");
+					Cmd.exec("setprop lockscreen.rot_override false");
 				}
 				else
 				{
-					Cmd.execsu("setprop sys.glovemode.enabled 0");
+					Cmd.execsu("setprop lockscreen.rot_override false");
 				}
-				Cmd.execsu("setprop sys.glovemode.enabled 0");
-				prefs.edit().putString(Const.SOP_PREFS_GLOVE, "0").commit();
+				Cmd.execsu("setprop lockscreen.rot_override false");
+				prefs.edit().putString(Const.SOP_PREFS_SCREEN, "false").commit();
 			}
 			if (checkedId == group.getChildAt(1).getId())
 			{
 				if (Cmd.isOpen())
 				{
-					Cmd.exec("setprop sys.glovemode.enabled 1");
+					Cmd.exec("setprop lockscreen.rot_override true");
 				}
 				else
 				{
-					Cmd.execsu("setprop sys.glovemode.enabled 1");
+					Cmd.execsu("setprop lockscreen.rot_override true");
 				}
-				prefs.edit().putString(Const.SOP_PREFS_GLOVE, "1").commit();
+				prefs.edit().putString(Const.SOP_PREFS_SCREEN, "true").commit();
 			}
-
 		}
     };
 
@@ -135,7 +134,7 @@ public class Fragment2 extends android.support.v4.app.Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
-        int menuResId = R.menu.menu_fragment_2;
+        int menuResId = R.menu.menu_fragment_3;
         inflater.inflate(menuResId, menu);
     }
 
