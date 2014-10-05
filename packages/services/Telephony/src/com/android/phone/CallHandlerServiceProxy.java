@@ -55,7 +55,7 @@ public class CallHandlerServiceProxy extends Handler
     private static final boolean DBG = (PhoneGlobals.DBG_LEVEL >= 1) && (SystemProperties.getInt(
             "ro.debuggable", 0) == 1);
 
-    public static final int RETRY_DELAY_MILLIS = 2000;
+    public static final int RETRY_DELAY_MILLIS = 200; //2000;
     public static final int RETRY_DELAY_LONG_MILLIS = 30 * 1000; // 30 seconds
     private static final int BIND_RETRY_MSG = 1;
     private static final int BIND_TIME_OUT = 2;
@@ -171,6 +171,7 @@ public class CallHandlerServiceProxy extends Handler
                     Log.d(TAG, "CallHandlerService not connected.  Enqueue incoming.");
                 }
                 enqueueIncoming(call);
+		wakeUpScreen();
                 setupServiceConnection();
                 return;
             }
