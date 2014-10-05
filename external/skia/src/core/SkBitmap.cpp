@@ -336,6 +336,13 @@ bool SkBitmap::setConfig(const SkImageInfo& info, size_t rowBytes) {
                            info.fHeight, rowBytes, info.fAlphaType);
 }
 
+#ifdef USE_K3V2OEM1
+bool SkBitmap::setConfig(Config config, int width, int height, size_t rowBytes) {
+	return this->setConfig(config, width, height, rowBytes,
+		kPremul_SkAlphaType);
+}
+#endif
+
 bool SkBitmap::setAlphaType(SkAlphaType alphaType) {
     if (!validate_alphaType(this->config(), alphaType, &alphaType)) {
         return false;

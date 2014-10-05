@@ -248,11 +248,14 @@ public:
     */
     bool setConfig(Config, int width, int height, size_t rowBytes, SkAlphaType);
 
+#ifdef USE_K3V2OEM1
+    bool setConfig(Config config, int width, int height, size_t rowBytes = 0);
+#else
     bool setConfig(Config config, int width, int height, size_t rowBytes = 0) {
         return this->setConfig(config, width, height, rowBytes,
                                kPremul_SkAlphaType);
     }
-
+#endif
     bool setConfig(const SkImageInfo& info, size_t rowBytes = 0);
 
     /**
