@@ -845,4 +845,10 @@ extern "C" bool _ZN7android11AudioSystem17isSeparatedStreamE19audio_stream_type_
 }
 #endif // USE_SAMSUNG_SEPARATEDSTREAM
 
+#ifdef USE_K3V2OEM1
+extern "C" void _ZN7android11AudioSystem11setFmVolumeEf()
+{
+}
+#endif
+
 }; // namespace android
