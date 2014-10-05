@@ -34,6 +34,10 @@ include $(CLEAR_VARS)
 
 LOCAL_ARM_MODE := thumb
 
+ifeq ($(BOARD_USE_K3V2OEM1),true)
+LOCAL_CFLAGS += -DUSE_K3V2OEM1
+endif
+
 # need a flag to tell the C side when we're on devices with large memory
 # budgets (i.e. larger than the low-end devices that initially shipped)
 ifeq ($(ARCH_ARM_HAVE_VFP),true)
