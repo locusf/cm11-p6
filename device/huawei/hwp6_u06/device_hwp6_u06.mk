@@ -449,6 +449,10 @@ PRODUCT_COPY_FILES += \
 # This device have enough room for precise davick
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# Device uses ultra-high-density artwork where available
+PRODUCT_AAPT_CONFIG := hdpi xhdpi xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+
 # Prime spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.manufacturer=HUAWEI \
@@ -568,8 +572,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.helix_enable=true \
     af.resampler.quality=4 \
     ro.config.widevine_level3=true \
-    drm.service.enabled=true 
-
+    drm.service.enabled=true
 
 $(call inherit-product, build/target/product/full.mk)
 
