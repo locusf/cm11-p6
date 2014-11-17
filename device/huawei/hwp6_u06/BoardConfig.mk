@@ -54,7 +54,26 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_TI := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/hwp6_u06/bluetooth
 
-TARGET_PREBUILT_KERNEL := device/huawei/hwp6_u06/kernel
+#TARGET_PREBUILT_KERNEL := device/huawei/hwp6_u06/kernel
+TARGET_KERNEL_SOURCE := kernel/huawei/hwp6_u06
+TARGET_KERNEL_CONFIG := hisi_k3v2oem1_defconfig
+
+WLAN_MODULES:
+
+	cd hardware/ti/wlan/mac80211/compat_wl18xx && pwd && git reset --hard && git clean -fd
+	make clean -C hardware/ti/wlan/mac80211/compat_wl18xx
+	make -j8 -C hardware/ti/wlan/mac80211/compat_wl18xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE="arm-linux-androideabi-"
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/compat/sch_codel.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/compat/sch_fq_codel.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/drivers/net/wireless/ti/wl18xx/wl18xx.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/drivers/net/wireless/ti/wlcore/wlcore.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/drivers/net/wireless/ti/wlcore/wlcore_spi.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl18xx/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
+	
+TARGET_KERNEL_MODULES := WLAN_MODULES
 
 BOARD_HAL_STATIC_LIBRARIES += libhealthd.k3v2oem1
 

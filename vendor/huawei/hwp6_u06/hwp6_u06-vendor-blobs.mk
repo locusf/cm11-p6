@@ -95,17 +95,6 @@ PRODUCT_COPY_FILES += \
     $(PATH_FILES)/lib/hw/sensors.k3v2oem1.so:system/lib/hw/sensors.k3v2oem1.so
 
 PRODUCT_COPY_FILES += \
-    $(PATH_FILES)/lib/modules/cfg80211.ko:system/lib/modules/cfg80211.ko \
-    $(PATH_FILES)/lib/modules/compat.ko:system/lib/modules/compat.ko \
-    $(PATH_FILES)/lib/modules/mac80211.ko:system/lib/modules/mac80211.ko \
-    $(PATH_FILES)/lib/modules/sch_codel.ko:system/lib/modules/sch_codel.ko \
-    $(PATH_FILES)/lib/modules/sch_fq_codel.ko:system/lib/modules/sch_fq_codel.ko \
-    $(PATH_FILES)/lib/modules/wl18xx.ko:system/lib/modules/wl18xx.ko \
-    $(PATH_FILES)/lib/modules/wlcore.ko:system/lib/modules/wlcore.ko \
-    $(PATH_FILES)/lib/modules/wlcore_sdio.ko:system/lib/modules/wlcore_sdio.ko \
-    $(PATH_FILES)/lib/modules/wlcore_spi.ko:system/lib/modules/wlcore_spi.ko
-
-PRODUCT_COPY_FILES += \
     $(PATH_FILES)/lib/soundfx/libdolbymobileeffect.so:system/lib/soundfx/libdolbymobileeffect.so
 
 PRODUCT_COPY_FILES += \
