@@ -18,3 +18,7 @@ $ choose your appropriate number ...
 $ brunch hwp6_u06
 
 
+Warning : By building custom VIVANTE libraries , your final package will not boot in your device, because at this time some source code from gpu_vivante must be updated or is not completed 100% !
+
+
+
