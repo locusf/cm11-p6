@@ -60,28 +60,12 @@ sp<MediaExtractor> MediaExtractor::Create(
         const sp<DataSource> &source, const char *mime) {
     sp<AMessage> meta;
 
-#ifdef USE_K3V2OEM1
-
-#else
-    bool secondPass = false;
-#endif
-
     String8 tmp;
-#ifdef USE_K3V2OEM1
-    if (mime == NULL) {
-#else
-retry:
-    if (secondPass || mime == NULL) {
-#endif
 
-#ifdef USE_K3V2OEM1
+    if (mime == NULL) {
+
         float confidence;
-#else
-        float confidence;
-        if (secondPass) {
-            confidence = 3.14f;
-        }
-#endif
+
         if (!source->sniff(&tmp, &confidence, &meta)) {
             ALOGV("FAILED to autodetect media content.");
 
@@ -116,11 +100,8 @@ retry:
     }
 
     AString extractorName;
-#ifdef USE_K3V2OEM1
     MediaExtractor *ret = NULL;
-#else
-    sp<MediaExtractor> ret = NULL;
-#endif
+
     if (meta.get() && meta->findString("extended-extractor-use", &extractorName)
             && sPlugin.create) {
         ALOGI("Use extended extractor for the special mime(%s) or codec", mime);
@@ -166,22 +147,7 @@ retry:
     ret = ExtendedUtils::MediaExtractor_CreateIfNeeded(ret, source, mime);
 #endif
 
-#ifdef USE_K3V2OEM1
     return ret;
-#else
-    if (ret != NULL) {
-
-        if (!(!strcasecmp(mime, MEDIA_MIMETYPE_CONTAINER_MPEG4) &&
-                (source->flags() & DataSource::kIsCachingDataSource)) &&
-                    !isDrm && !secondPass && ( ret->countTracks() == 0 ||
-                    (!strncasecmp("video/", mime, 6) && ret->countTracks() < 2) ) ) {
-            secondPass = true;
-            goto retry;
-        }
-    }
-
-    return ret;
-#endif
 }
 
 }  // namespace android

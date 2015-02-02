@@ -1130,19 +1130,12 @@ static WriteScanline ChooseWriter(const SkBitmap& bm) {
     }
 }
 
-#ifdef USE_K3V2OEM1
 class SkJPEGImageEncoder : public SkImageEncoder {
 protected:
     virtual bool onEncode(SkWStream* stream, const SkBitmap& bm, int quality) SK_OVERRIDE;
 };
 
 bool SkJPEGImageEncoder::onEncode(SkWStream* stream, const SkBitmap& bm, int quality) {
-#else
-class SkJPEGImageEncoder : public SkImageEncoder {
-protected:
-    virtual bool onEncode(SkWStream* stream, const SkBitmap& bm, int quality) {
-#endif
-
 #ifdef TIME_ENCODE
         SkAutoTime atm("JPEG Encode");
 #endif
@@ -1211,12 +1204,7 @@ protected:
         jpeg_destroy_compress(&cinfo);
 
         return true;
-#ifdef USE_K3V2OEM1
 }
-#else
-    }
-};
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 DEFINE_DECODER_CREATOR(JPEGImageDecoder);
